@@ -1,0 +1,230 @@
+<html>
+    <head>
+        <title>RaisedOnline</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+
+      <div class="container">
+          <div class="left">
+            <img src="LeftHandedPanel_static.gif">
+
+              <!--SCREEN-->
+                <img src="VideoPlayerStatic.gif" class="videoplayer" id="videoScreen">
+
+              <!--START AND END BUTTON-->
+                <img src="StartLight_On.png" class="SEbtn Sbtn">
+                
+                <img src="EndLight_On.png" class="SEbtn Ebtn"id="endBtn">
+
+              <!--EMOTIONS BUTTONS-->
+
+                <img src="button_1.png" class="btn btn1" data-on="button_1.png" data-off="buttonoff_1.png">
+
+                <img src="button_2.png" class="btn btn2" data-on="button_2.png" data-off="buttonoff_2.png">
+
+                <img src="button_3.png" class="btn btn3" data-on="button_3.png" data-off="buttonoff_3.png">
+
+                <img src="button_4.png" class="btn btn4" data-on="button_4.png" data-off="buttonoff_4.png">
+
+                <img src="button_5.png" class="btn btn5" data-on="button_5.png" data-off="buttonoff_5.png">
+                
+              <!--MUSIC BUTTONS-->
+
+                <img src="MusicButton_1.png" class="music-btn music1" id="music1">
+                <img src="MusicButton_2.png" class="music-btn music2" id="music2">
+                <img src="MusicButton_3.png" class="music-btn music3" id="music3">
+                <img src="MusicButton_4.png" class="music-btn music4" id="music4">
+                <img src="MusicButton_5.png" class="music-btn music5" id="music5">
+
+              <!--DOPAMINE BUTTON-->
+                
+                <img src="DopamineButton_on.png" class="dopamine-btn dopamine" id="dopamine">
+
+              <!--DOPAMINE INDICATOR-->
+
+                <img src="dopaminelvl0.png" class="dopamine-lvl" id="dopamineLvl">
+
+              <!--MUSIC INTERFACE-->
+                <img src="MusicInterface_Base.png" class="music-interface" id="musicInterface">
+
+      </div>
+
+      <div class="right">
+          <img class="rightImage" src="RightHandedPanel_static.png">
+          <img src="FrameR.png" class="frame frame-right">
+          <img src="FrameL.png" class="frame frame-left">
+        </div>
+
+<script>
+
+// emotion buttons toggle between on/off //
+
+  const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      
+  const onImg = btn.dataset.on;
+  const offImg = btn.dataset.off;
+    if (btn.classList.contains("off")) {
+      btn.src = onImg;
+      btn.classList.remove("off");
+    } else {
+      btn.src = offImg;
+      btn.classList.add("off");
+    }
+  });
+});
+
+// emotion button and connecting dat to videoplayer //
+
+const emotionMap = {
+  btn1: "videoplayer1.mp4",
+  btn2: "videoplayer2.mp4",
+  btn3: "videoplayer3.mp4",
+  btn4: "videoplayer4.mp4",
+  btn5: "videoplayer5.mp4"
+};
+
+let currentEmotion = null;  
+let currentScreen = document.getElementById("videoScreen");
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.classList[1]; //  
+    const videoSrc = emotionMap[id];
+ 
+    if (currentEmotion === id) {
+      const img = document.createElement("img");
+      img.src = "VideoPlayerStatic.gif";
+      img.className = "videoplayer";
+      img.id = "videoScreen";
+
+      currentScreen.replaceWith(img);
+      currentScreen = img;
+      currentEmotion = null;
+      return;
+    }
+ 
+    const video = document.createElement("video");
+    video.src = videoSrc;
+    video.autoplay = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.className = "videoplayer";
+    video.id = "videoScreen";
+
+    currentScreen.replaceWith(video);
+    currentScreen = video;
+    currentEmotion = id;
+  });
+});
+
+// music buttons animations + music interface //
+
+  const downButtons = [document.getElementById("music1"), document.getElementById("music4")];
+  const upButtons = [document.getElementById("music2"), document.getElementById("music3"), document.getElementById("music5")];
+
+  downButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("move-down");
+    });
+  });
+
+  upButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("move-up");
+    });
+  });
+
+    let currentAudio = null;
+    let currentButton = null;
+
+  const musicMap = {
+    music1: { audio: "1.mp3", gif: "MusicInterface_1.gif" },
+    music2: { audio: "2.mp3", gif: "MusicInterface_2.gif" },
+    music3: { audio: "3.mp3", gif: "MusicInterface_3.gif" },
+    music4: { audio: "4.mp3", gif: "MusicInterface_4.gif" },
+    music5: { audio: "5.mp3", gif: "MusicInterface_5.gif" } 
+  };
+
+  const interfaceImg = document.getElementById("musicInterface");
+
+  document.querySelectorAll(".music-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.id;
+      const config = musicMap[id];
+
+    if (currentButton === id) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      interfaceImg.src = "MusicInterface_Base.png";
+      currentAudio = null;
+      currentButton = null;
+      return;
+    }
+
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    if (config) {
+      currentAudio = new Audio(config.audio);
+      currentAudio.loop = true;
+      currentAudio.play();
+
+      interfaceImg.src = config.gif;
+      currentButton = id;
+    }
+  });
+});
+
+// dopamine button + progression bar //
+
+  const dopamineBtn = document.getElementById("dopamine");
+  const dopamineImg = document.getElementById("dopamineLvl");
+
+    let level = 0;
+    const maxLevel = 6;
+
+  function updateDopamineLevel() {
+    if (level < maxLevel) {
+      level++;
+      dopamineImg.src = `dopaminelvl${level}.png`;
+
+    if (level === maxLevel) {
+      setTimeout(() => {
+        window.location.href = "death.html"; 
+      }, 1000);
+    }
+  }
+}
+
+setInterval(updateDopamineLevel, 10000);
+
+dopamineBtn.addEventListener("click", () => {
+  dopamineBtn.src = "DopamineButton_off.png";
+
+  level = 0;
+  dopamineImg.src = `dopaminelvl0.png`;
+
+  setTimeout(() => {
+    dopamineBtn.src = "DopamineButton_on.png";
+  }, 1000); 
+});
+
+//END BUTTON DEATH SCREEN//
+
+const endBtn = document.getElementById("endBtn");
+  endBtn.addEventListener("click", () => {
+  window.location.href = "death.html"; 
+});
+
+</script>
+    </body>
+</html>

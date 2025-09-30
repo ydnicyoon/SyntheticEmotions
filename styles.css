@@ -1,0 +1,206 @@
+/* STATIC BASE */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.container {
+  display: flex; 
+  height: 100vh;
+  overflow: hidden; 
+}
+
+.left {
+  display: flex; 
+  position: relative; 
+  flex: 0 0 auto;  
+}
+
+.left .gif {
+  height: vh;  
+  width: auto;               
+  display: block; 
+}
+
+/* SCREEN */
+
+.videoplayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  z-index: -1;
+  background: black; 
+}
+
+
+/* START/END BUTTON START */
+.SEbtn {
+  position: absolute;
+  width: 18%;     
+  height: 16%;
+  z-index: 5;
+  pointer-events: auto; 
+  cursor: pointer;
+
+  opacity: 0;       
+  transition: opacity 0.2s ease-in-out;
+}
+
+.SEbtn:hover {
+  opacity: 1;
+} 
+
+.sbtn { top: 0.8%; left: 1.3%; }
+.ebtn { top: 0.08%; left: 12.55%; }
+
+/* EMOTION BUTTONS START */
+
+.btn {
+  position: absolute;
+  width: 4.5%;     
+  height: auto;
+  z-index: 5;
+  pointer-events: auto; 
+  cursor: pointer;
+}
+
+.btn1 { top: 3.8%; left: 41.1%; }
+.btn2 { top: 3.8%; left: 49.6%; }
+.btn3 { top: 3.8%; left: 58.3%; }
+.btn4 { top: 3.8%; left: 67.2%; }
+.btn5 { top: 3.8%; left: 76%; }
+
+.btn.off {
+  transform: translateY(22px); 
+}
+
+/* MUSIC BUTTONS START */
+
+.music-btn {
+  position: absolute;
+  width: 4.5%;
+  height: auto;
+  z-index: 5;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.move-down {
+  transform: translateY(30px);
+}
+
+.move-up {
+  transform: translateY(-30px);
+}
+
+.music1 { bottom: 10%; left: 50.5%; }
+.music2 { bottom: 3%; left: 56%; }
+.music3 { bottom: 6%; left: 61.6%; }
+.music4 { bottom: 8%; left: 67%; }
+.music5 { bottom: 4%; left: 72.8%; }
+
+/* DOPAMINE BUTTON START */
+
+.dopamine-btn {
+  position: absolute;
+  width: 2.7%;    
+  height: auto;
+  bottom: 10%;
+  left: 87.8%;
+  z-index: 5;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+/* DOPAMINE INDICATOR START */
+
+.dopamine-lvl {
+  position: absolute;
+  width: 76.8%;
+  height: auto;
+  z-index: 20;  
+}
+
+#dopamineLvl {
+  bottom: 32.5%;
+  left: 14%;
+}
+
+/* MUSIC INTERFACE START */
+
+.music-interface {
+  position: absolute;
+  width: 28%;    
+  height: auto;
+  z-index: -1;
+}
+
+#musicInterface {
+  bottom: 15.2%;
+  left: 49.9%;
+}
+
+/* RIGHTPANEL */
+
+.right {
+  flex: 1 1 auto; 
+  position: relative;
+  overflow: hidden; 
+}
+
+.rightImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  height: 100%;  
+  width: auto; 
+  min-width: 100%; 
+}
+
+.frame {
+  position: absolute;
+  top: 0;
+  height: 100vh; 
+  width: auto;
+  z-index: 10;      
+}
+
+.frame-right {
+  right: 0;
+  height: 100vh;
+    width: auto;
+}
+
+.frame-left {
+  left: 0;
+  height: 100vh;
+    width: auto;
+}
+
+/* DEATH SCREEN */
+
+.DeathScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
+.deathgif2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none; 
+  z-index: 2; 
+}
